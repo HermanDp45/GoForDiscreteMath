@@ -1,0 +1,25 @@
+{
+    "ID":134,
+    "Number":"FFF1",
+    "Year":2,
+    "Students":[
+        {
+            "LastName":"ABA",
+            "FirstName":"BABA",
+            "MiddleName":"LADA",
+            "Birthday":"FEFSE",
+            "Address":"ALALLAA",
+            "Phone":"LALALALA",
+            "Rating":[1,2,3]
+        },
+        {
+            "LastName":"Ien",
+            "FirstName":"ccc",
+            "MiddleName":"KKKK",
+            "Birthday":"IIIII",
+            "Address":"MFLEKFLSE",
+            "Phone":"ENFKJSENFK",
+            "Rating":[5,2]
+        }
+    ]
+}
