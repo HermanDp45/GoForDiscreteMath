@@ -1,71 +1,52 @@
 package main
 
 import "fmt"
-
-type Graph struct {
-	E [][]int;
-	V []Node;
-};
-
-
-type Node struct {
-	num int;
-	mark int;
-};
-
-func DFS(G *Graph){
-	for _, val := range G.V {
-		val.mark = -1
-	}
-	for _, val := range G.V {
-		if val.mark == -1 {
-			VisitVertex(G, &val)
-		}
-	}
-}
-
-func VisitVertex(G *Graph, val *Node){
-	fmt.Println(val.num);
-	val.mark = 0;
-	for _, line := range G.E{
-		for ind2 := 0; ind2 < len(line); ind2++ {
-			if G.V[ind2].mark == -1 {
-				VisitVertex(G, &G.V[ind2]);
+// 0 - red, 1 - blue;
+func DFS(graph *[][]int ,used *[]int, v int, color int, Sum[]) ([2]int) {
+	(*used)[v] = color;
+	fmt.Println(*used);
+    for _, v1 := range (*graph)[v] {
+        if (*used)[v1] == 0 {
+			if color == 1 {
+				color = 2;
+			} else {
+				color = 1;
 			}
-		}
-	}
-	val.mark = 1;
+			DFS(graph, used, v1, color)
+        }
+    }
 }
 
 
 func main(){
 	var n int;
 	var inp string;
-	var m [][]int = make([][]int, 0, 0);
-	var v []Node = make([]Node, 0, n);
-	
+
+	var l [][]int = make([][]int, 0, 1)
 	fmt.Scanln(&n);
-	for i := 1; i <= n; i++ {
-		v = append(v, Node{i, -1});
-	}
-	fmt.Println(v);
 	for i := 0; i < n; i++{
-		m = append(m, make([]int, 0, 1))
+		l = append(l, make([]int, 0, 1))
 		for q := 0; q < n; q++{
 			fmt.Scan(&inp)
-			if inp == "-" {
-				m[i] = append(m[i], 1);
-			} else {
-				m[i] = append(m[i], 0)
+			if inp == "+" {
+				l[i] = append(l[i], q);
 			}
 		}
 	}
-	fmt.Println(m);
 
-	var G Graph = Graph{m, v};
-	DFS(&G);
-	// for i := 0; i < n; i++ {
-	// 	for q := 0
-	// }
+	fmt.Println(l)
+	
+
+	used := make([]int, n, n);
+	fmt.Println(used);
+
+	fmt.Println("START");
+	for i := 0; i < n; i++ {
+		if used[i] == 0 {
+			DFS(&l, &used, i, 1);
+		}
+	}
+	fmt.Println(used);
+	fmt.Println("END");
 	
 }
