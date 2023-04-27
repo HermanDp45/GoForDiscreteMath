@@ -1,0 +1,17 @@
+graph {
+         0 [color = red];
+         1 [color = red];
+         2 ;
+         3 ;
+         4 [color = red];
+         5 [color = red];
+         6 ;
+         0 -- 1 [color = red];
+         0 -- 5 [color = red];
+         1 -- 5 [color = red];
+         1 -- 4 [color = red];
+         5 -- 4 [color = red];
+         2 -- 3 ;
+         3 -- 6 ;
+         2 -- 6 ;
+}
