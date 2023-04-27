@@ -2,12 +2,12 @@ package main
 
 import "fmt"
 
-func DFS(v int, p int, timer int, used *[]bool, graph *[][]int, tin *[]int, fup *[]int) int {
+func DFS(v int, p int, timer int, used *[]bool, graph *[][]int, timeIn *[]int, timeMin *[]int) int {
 	(*used)[v] = true
 	count := 0
 	timer++
-	(*tin)[v] = timer
-	(*fup)[v] = timer
+	(*timeIn)[v] = timer
+	(*timeMin)[v] = timer
 
 	for i := 0; i < len((*graph)[v]); i++ {
 		to := (*graph)[v][i]
@@ -15,15 +15,15 @@ func DFS(v int, p int, timer int, used *[]bool, graph *[][]int, tin *[]int, fup 
 			continue
 		}
 		if (*used)[to] {
-			if (*fup)[v] > (*fup)[to] {
-				(*fup)[v] = (*fup)[to]
+			if (*timeMin)[v] > (*timeMin)[to] {
+				(*timeMin)[v] = (*timeMin)[to]
 			}
 		} else {
-			count += DFS(to, v, timer, used, graph, tin, fup)
-			if (*fup)[v] > (*fup)[to] {
-				(*fup)[v] = (*fup)[to]
+			count += DFS(to, v, timer, used, graph, timeIn, timeMin)
+			if (*timeMin)[v] > (*timeMin)[to] {
+				(*timeMin)[v] = (*timeMin)[to]
 			}
-			if (*fup)[to] > (*tin)[v] {
+			if (*timeMin)[to] > (*timeIn)[v] {
 				count++
 				fmt.Println("+1", v, to)
 			}
@@ -32,14 +32,14 @@ func DFS(v int, p int, timer int, used *[]bool, graph *[][]int, tin *[]int, fup 
 	return count
 }
 
-func FindBridge(N, timer int, used *[]bool, graph *[][]int, tin, fup *[]int) int {
+func FindBridge(N, timer int, used *[]bool, graph *[][]int, timeIn, timeMin *[]int) int {
 	count := 0
 	for i := 0; i < N; i++ {
 		(*used)[i] = false
 	}
 	for i := 0; i < N; i++ {
 		if !(*used)[i] {
-			count = DFS(i, -1, timer, used, graph, tin, fup)
+			count = DFS(i, -1, timer, used, graph, timeIn, timeMin)
 		}
 	}
 
@@ -58,8 +58,10 @@ func main() {
 	}
 
 	used := make([]bool, N, N)
-	tin, fup := make([]int, N, N), make([]int, N, N)
+	timeIn, timeMin := make([]int, N, N), make([]int, N, N)
 
-	fmt.Print(FindBridge(N, 0, &used, &graph, &tin, &fup))
+	fmt.Print(FindBridge(N, 0, &used, &graph, &timeIn, &timeMin))
 
 }
+
+//https://e-maxx.ru/algo/bridge_searching
